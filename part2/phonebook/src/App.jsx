@@ -23,13 +23,6 @@ const App = () => {
   const [toShow,setToShow] = useState(persons);
   const handleFilter = (event)=>{
     setNewFilter(event.target.value)
-    let temp = []
-    persons.forEach((e)=>{
-      if(e.name.includes(event.target.value)){
-        temp.concat(e)
-      }
-    })
-    setToShow(temp)
   }
   const addName = (event)=>{
     event.preventDefault()
@@ -80,7 +73,7 @@ const App = () => {
         
       </form>
       <h2>Numbers</h2>
-      <PersonsList persons = {toShow}/>
+      <PersonsList persons = {persons}/>
     </div>
   )
 }
