@@ -2,15 +2,28 @@ import { useState } from 'react'
 
 const PersonsList = (props)=>{
 
-  const persons = props.persons;
-  return (
-    <>
-    {persons.map((p,id)=>{
-      console.log(p);
-      return <p key={id}>{p.name} {p.number}</p>
-    })}
-    </>
-  )
+  const persons = props.allPersons;
+  const toShow = props.persons
+  if(toShow.length===0){
+    return (
+      <>
+      {persons.map((p,id)=>{
+        return <p key={id}>{p.name} {p.number}</p>
+      })}
+      </>
+    )
+  }
+  else{
+
+    return (
+      <>
+      {toShow.map((p,id)=>{
+        return <p key={id}>{p.name} {p.number}</p>
+      })}
+      </>
+    )
+  }
+ 
   
 }
 const App = () => {
@@ -20,15 +33,23 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber,setNewNumber] = useState('')
   const [newFilter,setNewFilter] = useState('')
-  const [toShow,setToShow] = useState(persons);
+  const [toShow,setToShow] = useState([]);
   const handleFilter = (event)=>{
     setNewFilter(event.target.value)
+    if(newFilter === ''){
+
+      setToShow([])
+      return
+    }
+    const regex = new RegExp(newFilter, 'i');
+    const filteredPersons = () => persons.filter(person => person.name.match(regex))
+    setToShow(filteredPersons)
+    console.log(filteredPersons)
   }
   const addName = (event)=>{
     event.preventDefault()
     var check = true
     persons.forEach(element => {
-      console.log(element.name , newName)
       if(newName==element.name)check = false;
     })
     if(!check){
@@ -43,15 +64,16 @@ const App = () => {
     setToShow(persons.concat(personObject))
     setNewName('')
     setNewNumber('')    
-    //console.log(persons)
+    
   }
 
   const handleNameChange = (event)=>{
-    console.log(event.target.value)
+    
     setNewName(event.target.value)
   }
   const handleNumberChange = (event)=>{
     setNewNumber(event.target.value)
+    
   }
   return (
     <div>
@@ -73,7 +95,7 @@ const App = () => {
         
       </form>
       <h2>Numbers</h2>
-      <PersonsList persons = {persons}/>
+      <PersonsList persons = {toShow} allPersons = {persons}/>
     </div>
   )
 }
