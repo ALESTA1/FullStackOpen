@@ -7,8 +7,9 @@ const create = newObject => {
 
 const del = (id) =>{
 
-    return axios.delete
+    return axios.delete(`${baseUrl}/${id}`)
 }
 export default {
-    create :create
+    create :create,
+    del :del
 }

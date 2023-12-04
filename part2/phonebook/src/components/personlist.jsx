@@ -6,11 +6,13 @@ const PersonsList = (props)=>{
     if(toShow.length===0){
       return (
         <>
-        {persons.map((p,id)=>{
+        {persons.map((p)=>{
           return (
             <>
-              <p key={id}>{p.name} {p.number}</p>
-              <button>Delete</button>
+            <div key = {p.id}>
+              <p >{p.name} {p.number}</p>
+              <button  onClick={()=>props.handleDelete(p.id)}>Delete</button>
+            </div>              
             </>
           )
         })}
@@ -21,11 +23,13 @@ const PersonsList = (props)=>{
   
       return (
         <>
-        {toShow.map((p,id)=>{
+        {toShow.map((p)=>{
           return (
             <>
-              <p key={id}>{p.name} {p.number}</p>
-              <button>Delete</button>
+            <div key = {p.id}>
+              <p >{p.name} {p.number}</p>
+              <button  onClick={()=>props.handleDelete(p.id)}>Delete</button>
+            </div>
             </>
           )
         })}

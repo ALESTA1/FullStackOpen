@@ -49,7 +49,6 @@ const App = () => {
     .create(personObject)
     .then(response=>{
       setPersons(persons.concat(personObject))
-      setToShow(persons.concat(personObject))
       setNewName('')
       setNewNumber('')    
       })  
@@ -65,6 +64,22 @@ const App = () => {
   }
   const handleNumberChange = (event)=>{
     setNewNumber(event.target.value)
+    
+  }
+  const handleDelete = (id)=>{
+    console.log(id)
+    phoneBookService.del(id)
+    .then(response=>{
+      console.log(response.data)
+      let temp = []
+      persons.forEach(p=>{
+        if(p.id!=id)temp.push(p)
+      })
+      setPersons(temp)
+    })
+    .catch(error=>{
+      console.log(error)
+    })
     
   }
   return (
@@ -87,7 +102,7 @@ const App = () => {
         
       </form>
       <h2>Numbers</h2>
-      <PersonsList persons = {toShow} allPersons = {persons}/>
+      <PersonsList persons = {toShow} allPersons = {persons} handleDelete = {handleDelete}/>
     </div>
   )
 }
