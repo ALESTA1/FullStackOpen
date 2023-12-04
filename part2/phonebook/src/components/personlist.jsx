@@ -7,7 +7,12 @@ const PersonsList = (props)=>{
       return (
         <>
         {persons.map((p,id)=>{
-          return <p key={id}>{p.name} {p.number}</p>
+          return (
+            <>
+              <p key={id}>{p.name} {p.number}</p>
+              <button>Delete</button>
+            </>
+          )
         })}
         </>
       )
@@ -17,7 +22,12 @@ const PersonsList = (props)=>{
       return (
         <>
         {toShow.map((p,id)=>{
-          return <p key={id}>{p.name} {p.number}</p>
+          return (
+            <>
+              <p key={id}>{p.name} {p.number}</p>
+              <button>Delete</button>
+            </>
+          )
         })}
         </>
       )
