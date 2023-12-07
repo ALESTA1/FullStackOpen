@@ -2,6 +2,7 @@ import { useState ,useEffect} from 'react'
 import axios from 'axios'
 import PersonsList from './components/personlist';
 import phoneBookService from './services/phonebook'
+import Notif from './components/notifications';
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -9,7 +10,8 @@ const App = () => {
   const [newNumber,setNewNumber] = useState('')
   const [newFilter,setNewFilter] = useState('')
   const [toShow,setToShow] = useState([]);
-
+  const [notif,setNotif] = useState('')
+  const [notifStyle,setNotifStyle] = useState('error')
   useEffect(() => {
     console.log('effect')
     axios
@@ -47,6 +49,11 @@ const App = () => {
         setPersons(temp)
         setNewName('')
         setNewNumber('')
+        setNotif("Updated entry");
+        setTimeout(()=>{
+        setNotif('')
+        setNotifStyle('del')
+      },2000)
       })
       .catch(error=>{
         console.log(error)
@@ -66,6 +73,11 @@ const App = () => {
       setPersons(persons.concat(personObject))
       setNewName('')
       setNewNumber('')    
+      setNotif("Added New entry");
+      setNotifStyle('del')
+      setTimeout(()=>{
+        setNotif('')
+      },2000)
       })  
     .catch(error=>{
       console.log(error)
@@ -91,6 +103,11 @@ const App = () => {
         if(p.id!=id)temp.push(p)
       })
       setPersons(temp)
+      setNotif("Deleted entry")
+      setNotifStyle('del')
+      setTimeout(()=>{
+        setNotif('')
+      },2000)
     })
     .catch(error=>{
       console.log(error)
@@ -99,7 +116,8 @@ const App = () => {
   }
   return (
     <div>
-      <h2>Phonebook</h2>
+      <Notif message = {notif} style={notifStyle}/>
+      <h2>Phonebook</h2>      
       <div>
         filter shown with : <input value={newFilter} onChange={handleFilter}/>
       </div>
