@@ -33,12 +33,25 @@ const App = () => {
   }
   const addName = (event)=>{
     event.preventDefault()
-    var check = true
-    persons.forEach(element => {
-      if(newName==element.name)check = false;
+    var id = -1;
+    persons.forEach((element,i) => {
+      if(newName==element.name)id = i
     })
-    if(!check){
-      console.log(`${newName} already added`);
+    if(id!=-1){
+      
+      var temp = persons
+      temp[id].number = newNumber
+
+      phoneBookService.update(temp[id].id,temp[id])
+      .then(response=>{
+        setPersons(temp)
+        setNewName('')
+        setNewNumber('')
+      })
+      .catch(error=>{
+        console.log(error)
+      })
+
       return
     }
     const personObject = {
@@ -48,6 +61,8 @@ const App = () => {
     phoneBookService
     .create(personObject)
     .then(response=>{
+      console.log(response.data)
+      personObject.id = response.data.id
       setPersons(persons.concat(personObject))
       setNewName('')
       setNewNumber('')    

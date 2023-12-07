@@ -1,14 +1,9 @@
 {
   "persons": [
     {
-      "name": "edwadwaqdaw",
-      "number": "34234234",
+      "name": "Raghav",
+      "number": "1234",
       "id": 1
-    },
-    {
-      "name": "artos",
-      "number": "31432",
-      "id": 3
     }
   ]
 }
