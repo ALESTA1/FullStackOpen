@@ -15,7 +15,7 @@ const App = () => {
   useEffect(() => {
     console.log('effect')
     axios
-      .get('http://localhost:3001/persons')
+      .get('https://phonebook-xfno.onrender.com/api/persons')
       .then(response => {
         console.log('promise fulfilled')
         setPersons(response.data)
